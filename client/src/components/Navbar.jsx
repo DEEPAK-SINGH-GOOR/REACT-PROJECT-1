@@ -24,15 +24,12 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            {/* Conditionally render the Assign button if the user's role is "admin" or "user" */}
+            {/* Conditionally render the Assign link if the user's role is "admin" or "user" */}
             {Ability(["admin", "user"]) && (
               <li className="nav-item">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => nav("/assign")}
-                >
+                <Link className="nav-link" to="/assign">
                   Assign
-                </button>
+                </Link>
               </li>
             )}
             {/* Login/Logout */}
@@ -63,7 +60,7 @@ const Navbar = () => {
             </li>
           </ul>
           {/* Search Form */}
-          {/* <form className="d-flex" role="search">
+          <form className="d-flex" role="search">
             <input
               className="form-control me-2"
               type="search"
@@ -73,7 +70,7 @@ const Navbar = () => {
             <button className="btn btn-outline-success" type="submit">
               Search
             </button>
-          </form> */}
+          </form>
         </div>
       </div>
     </nav>
