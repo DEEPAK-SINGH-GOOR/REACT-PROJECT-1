@@ -1,9 +1,13 @@
-import React from 'react'
-import { getUserDetails } from '../userDetails'
+import React from "react";
+import { getUserDetails } from "../userDetails";
 
 const Ability = (roles = []) => {
-    const userRole = getUserDetails()?.role;
-    return roles.includes(userRole)
-}
+  let role = getUserDetails()?.role;
+  if (roles.includes(role)) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
-export default Ability
+export default Ability;

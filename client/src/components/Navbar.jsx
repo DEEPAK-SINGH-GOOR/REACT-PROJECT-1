@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserDetails } from "../userDetails";
 import Cookies from "js-cookie";
-import Ability from "../role/Ability"; 
+import { getUserDetails } from "../userDetails";
+import Ability from "../role/Ability";
 
 const Navbar = () => {
   const nav = useNavigate();
@@ -24,15 +24,15 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            {/* Conditionally render the Assign link if the user's role is "admin" or "user" */}
+            {/* Conditionally render the Assign button */}
             {Ability(["admin", "user"]) && (
               <li className="nav-item">
-                <Link className="nav-link" to="/assign">
+                <button className="btn btn-primary" onClick={() => nav("/assign")}>
                   Assign
-                </Link>
+                </button>
               </li>
             )}
-            {/* Login/Logout */}
+            {/* Conditionally show Login or Logout */}
             <li className="nav-item">
               {user ? (
                 <span
@@ -48,7 +48,7 @@ const Navbar = () => {
                 </Link>
               )}
             </li>
-            {/* Display User Name or Signup Link */}
+            {/* Display user name or Signup */}
             <li className="nav-item">
               {user ? (
                 <span className="nav-link">{user.name}</span>
