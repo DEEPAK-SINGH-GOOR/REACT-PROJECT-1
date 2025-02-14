@@ -13,19 +13,22 @@ const AllRoutes = () => {
     <div>
       <Routes>
         <Route path="/" element={
-            <Private>
-              <Home />
-            </Private>
-          }
+          <Private>
+            <Home />
+          </Private>
+        }
         />
-        {Ability(["admin"]) && (
-          <Route path="/assign" element={
+        {Ability(["admin", "user"]) ? (  
+          <Route
+            path="/assign"
+            element={
               <Private>
                 <Assign />
               </Private>
             }
           />
-        )}
+        ) : null}
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<PageNotFound />} />

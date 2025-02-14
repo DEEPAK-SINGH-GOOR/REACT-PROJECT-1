@@ -2,11 +2,11 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserDetails } from "../userDetails";
 import Cookies from "js-cookie";
+import Ability from "../role/Ability"; 
 
 const Navbar = () => {
   const nav = useNavigate();
-  let user = getUserDetails();
-  console.log(user);
+  const user = getUserDetails();
 
   const logOut = () => {
     Cookies.remove("token");
@@ -18,19 +18,31 @@ const Navbar = () => {
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            {/* Home Link */}
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">
                 Home
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/assign">
-                Assign
-              </Link>
-            </li>
+            {/* Conditionally render the Assign button if the user's role is "admin" or "user" */}
+            {Ability(["admin", "user"]) && (
+              <li className="nav-item">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => nav("/assign")}
+                >
+                  Assign
+                </button>
+              </li>
+            )}
+            {/* Login/Logout */}
             <li className="nav-item">
               {user ? (
-                <span className="nav-link" onClick={logOut} style={{ cursor: "pointer" }}>
+                <span
+                  className="nav-link"
+                  onClick={logOut}
+                  style={{ cursor: "pointer" }}
+                >
                   Logout
                 </span>
               ) : (
@@ -39,6 +51,7 @@ const Navbar = () => {
                 </Link>
               )}
             </li>
+            {/* Display User Name or Signup Link */}
             <li className="nav-item">
               {user ? (
                 <span className="nav-link">{user.name}</span>
@@ -49,7 +62,8 @@ const Navbar = () => {
               )}
             </li>
           </ul>
-          <form className="d-flex" role="search">
+          {/* Search Form */}
+          {/* <form className="d-flex" role="search">
             <input
               className="form-control me-2"
               type="search"
@@ -59,7 +73,7 @@ const Navbar = () => {
             <button className="btn btn-outline-success" type="submit">
               Search
             </button>
-          </form>
+          </form> */}
         </div>
       </div>
     </nav>

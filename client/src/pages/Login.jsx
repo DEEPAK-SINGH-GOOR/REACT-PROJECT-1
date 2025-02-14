@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
-import API from "../config/api"
-import Cookie from "js-cookie"
-import '../CSS/Signup.css'
+import React, { useState } from "react";
+import { API } from "../config/api";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
-
+import '../CSS/Signup.css';
 
 const Login = () => {
   const nav = useNavigate();
@@ -12,38 +10,51 @@ const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: ""
-  })
+  });
 
-  const handleinput = (e) => {
-    let { name, value } = e.target
-    setUser({ ...user, [name]: value })
-  }
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
 
   const createUser = async (data) => {
     try {
-      let res = await API.post("/users/login", data);
+      const res = await API.post("/users/login", data);
       const { user, token } = res.data;
       console.log(user, token);
-      Cookie.set("token", token, { expires: 7 });
+      Cookies.set("token", token, { expires: 7 });
       nav("/");
     } catch (error) {
-      console.log(error);
+      console.error("Login failed:", error);
     }
   };
 
   const onSubmit = (e) => {
-    e.preventDefault()
-    createUser(user)
-  }
+    e.preventDefault();
+    createUser(user);
+  };
+
   return (
     <div>
-      <form className='Login-form' onSubmit={onSubmit}>
-        <input className='' type="email" name='email' value={user.email} onChange={handleinput} placeholder='Email' />
-        <input type="password" name='password' value={user.password} onChange={handleinput} placeholder='Password' />
+      <form className="Login-form" onSubmit={onSubmit}>
+        <input
+          type="email"
+          name="email"
+          value={user.email}
+          onChange={handleInput}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          name="password"
+          value={user.password}
+          onChange={handleInput}
+          placeholder="Password"
+        />
         <input type="submit" value="Login" />
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

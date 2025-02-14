@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import API from "../config/api";
+import {API} from "../config/api";
 import Cookies from "js-cookie";
 import '../CSS/Signup.css'
 const Signup = () => {
